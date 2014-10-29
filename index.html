@@ -1,0 +1,473 @@
+<!doctype html>
+<html lang="en">
+
+    <head>
+        <meta charset="utf-8">
+
+        <title>WORKSHOP</title>
+
+        <meta name="description" content="Make a maintainable and scalable architecture for your project">
+        <meta name="author" content="Gregroy Van Looy">
+
+        <meta name="apple-mobile-web-app-capable" content="yes" />
+        <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+        <link rel="stylesheet" href="css/reveal.min.css">
+        <link rel="stylesheet" href="css/theme/beige.css" id="theme">
+
+        <!-- For syntax highlighting -->
+        <link rel="stylesheet" href="lib/css/zenburn.css">
+
+        <!-- If the query includes 'print-pdf', include the PDF print sheet -->
+        <script>
+            if( window.location.search.match( /print-pdf/gi ) ) {
+                var link = document.createElement( 'link' );
+                link.rel = 'stylesheet';
+                link.type = 'text/css';
+                link.href = 'css/print/pdf.css';
+                document.getElementsByTagName( 'head' )[0].appendChild( link );
+            }
+        </script>
+
+        <!--[if lt IE 9]>
+        <script src="lib/js/html5shiv.js"></script>
+        <![endif]-->
+    </head>
+
+    <body>
+
+        <div class="reveal">
+
+            <!-- Any section element inside of this container is displayed as a slide -->
+            <div class="slides">
+                <section>
+                    <h1>
+                        Advice and guidelines for creating manageable and scalable front-end architecture
+                    </h1>
+                </section>
+                <section>
+                    <ol>
+                        <li>HTML</li>
+                        <li>CSS</li>
+                        <li>New techniques</li>
+                        <li>Do's and Don't do's</li>
+                        <li>Hands on</li>
+                        <li>Code Review</li>
+                    </ol>
+                </section>
+                <section>
+                    <h2>Disclaimer</h2>
+                    <p>The following rules are not set in stone. They are a guideline and a way to inspire you to create your own set of rules. Something you will need to create a codebase that allows team collaboration and consistency across the entire project.</p>
+                    <p><small>Credits to <a href="http://cssguidelin.es/">cssguidlin.es</a> and <a href="http://codeguide.co/">codeguide.co</a></small></p>
+                </section>
+                <section>
+                    <h2>HTML Guidelines </h2>
+                </section>
+                <section>
+                    <h3>Syntax - code standards</h3>
+                    <ul>
+                        <li>Tabs vs. Spaces : pick either but be consistent</li>
+                        <li>Indent nested elements</li>
+                        <li>Use double quotes, never single quotes, on attributes</li>
+                        <li>Don't include a trailing slash in self-closing elements</li>
+                    </ul>
+                </section>
+                <section>
+                    <h3>HTML5 doctype</h3>
+                    <pre><code data-trim>
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+    &lt;head&gt;
+    &lt;/head&gt;
+&lt;/html&gt;
+                    </code></pre>
+                </section>
+                <section>
+                    <h3>Language attribute</h3>
+                    <pre><code data-trim>
+&lt;html lang="en"&gt;
+&lt;html lang="en-us"&gt;
+&lt;html lang="nl-be"&gt;
+&lt;!-- [primary-code]-[subcode optional] --&gt;
+                    </code></pre>
+                    <p><a href="http://www.sitepoint.com/web-foundations/iso-2-letter-language-codes/">List of language codes</a></p>
+                </section>
+                <section>
+                    <h3>IE compatibility mode</h3>
+                    <pre><code data-trim>
+&lt;head&gt;
+    &lt;meta http-equiv="X-UA-Compatible" content="IE=Edge"&gt;
+&lt;/head&gt;
+                    </code></pre>
+                </section>
+                <section>
+                    <h3>Character encoding</h3>
+                    <pre><code data-trim>
+&lt;head&gt;
+    &lt;meta charset="utf-8"&gt;
+&lt;/head&gt;
+                    </code></pre>
+                </section>
+                <section>
+                    <h3>CSS and JavaScript includes</h3>
+                    <pre><code data-trim>
+&lt;!-- External CSS --&gt;
+&lt;head&gt;
+    &lt;link rel="stylesheet" href="main.css"&gt;
+&lt;/head&gt;
+
+&lt;!-- JavaScript - before the closing body tag --&gt;
+    &lt;script src="main.min.js"&gt;&lt;/script&gt;
+&lt;/body&gt;
+                    </code></pre>
+                    <p><small>Note the missing <code>type="text/css"</code> and <code>type="text/javascript"</code>. This is no longer required in HTML5</small></p>
+                </section>
+                <section>
+                    <h3>Use the HTML5 tags to their advantage</h3>
+                    <pre><code data-trim>
+&lt;!-- BAD --&gt;
+&lt;div class="article-header"&gt;
+&lt;!-- GOOD --&gt;
+&lt;header class="article-header"&gt;
+&lt;!-- BAD --&gt;
+&lt;div class="navigation"&gt;
+&lt;!-- GOOD --&gt;
+&lt;nav class="primary-nav"&gt;
+                    </code></pre>
+                </section>
+                <section>
+                    <p>Some of the new HTML5 tags</p>
+                    <pre><code data-trim>
+article, aside, details, figcaption, figure, footer,
+header, hgroup, main, menu, nav, section, summary {
+    display: block;
+}
+                    </code></pre>
+                </section>
+                <section>
+                    <h3>Accessibility in HTML</h3>
+                    <p>See <a href="http://w3c.github.io/aria-in-html/">Using WAI-ARIA in HTML</a></p>
+                    <pre><code data-trim>
+&lt;header role="banner"&gt;
+&lt;div class="main-content" role="main"&gt;
+&lt;footer role="contentinfo"&gt;
+                    </code></pre>
+                    <p><small>An extensive <a href="http://codepen.io/bengie/pen/qACrf/">TABS</a> example. <br> Look for the <code>role=""</code> and <code>aria-xxxxx=""</code> attributes</small></p>
+                </section>
+                <section>
+                    <h3>SEO in HTML</h3>
+                    <ol>
+                        <li>1 <code>&lt;h1&gt;</code> per page</li>
+                        <li>Basic semantics with correct use of tags</li>
+                        <li>Microformats with <a href="http://schema.org">Schema.org</a></li>
+                    </ol>
+                    <pre><code data-trim>
+&lt;div itemscope itemtype=&quot;http://schema.org/Movie&quot;&gt;
+  &lt;h1 itemprop=&quot;name&quot;&gt;Avatar&lt;/h1&gt;
+  &lt;span&gt;Director: &lt;span itemprop=&quot;director&quot;&gt;James Cameron&lt;/span&gt; (born August 16, 1954)&lt;/span&gt;
+  &lt;span itemprop=&quot;genre&quot;&gt;Science fiction&lt;/span&gt;
+  &lt;a href=&quot;../movies/avatar-theatrical-trailer.html&quot; itemprop=&quot;trailer&quot;&gt;Trailer&lt;/a&gt;
+&lt;/div&gt;
+                    </code></pre>
+                </section>
+                <section>
+                    <h2>CSS</h2>
+                </section>
+                <section>
+                    <h3>Syntax - code standards</h3>
+                    <ul>
+                        <li>Tabs vs. Spaces - pick one but be consistent</li>
+                        <li>Grouping selectors: each selector on a single line</li>
+                        <li>One space between selector and opening brace</li>
+                        <li>Closing brace on a new line</li>
+                        <li>Each property on a single line</li>
+                        <li>One space after <code>:</code> for each declaration</li>
+                        <li>Lowercase all hex values + shorthand : <code>#fff</code> instead of <code>#FFFFFF</code></li>
+                        <li>No units for zero values: <code>margin: 0;</code> instead of <code>margin: 0px;</code></li>
+                        <li>Write code comments</li>
+                        <li>Don't us ID's for styling</li>
+                    </ul>
+                </section>
+                <section>
+                    <pre><code data-trim>
+.selector,
+.another-selector {
+    padding: 15px;
+    margin: 0;
+    background-color: #f90;
+    overflow: hidden; /* clearfix */
+}
+                    </code></pre>
+                </section>
+                <section>
+                    <h3>Learn your CSS basics</h3>
+                    <p>Don't state the obvious</p>
+                    <pre><code data-trim>
+/* some declarations make elements become block-level elements */
+.module-element {
+    float: left; /* makes it block-level */
+    display: block; /* redundant */
+}
+.another-module-element {
+    position: absolute; /* makes it block-level */
+    display: block; /* redundant */
+}
+                    </code></pre>
+                </section>
+                <section>
+                    <h3>Vendor-prefixes</h3>
+                    <p>Drop'em .... some of them</p>
+                    <pre><code data-trim>
+.island {
+    -webkit-border-radius: 3px; /* redundant */
+       -moz-border-radius: 3px; /* redundant */
+         -o-border-radius: 3px; /* redundant */
+            border-radius: 3px;
+}
+                    </code></pre>
+                </section>
+                <section>
+                    <h3>No ID's please</h3>
+                    <p>ID's are used as page anchors or as JavaScript hooks, <strong>NOT</strong> for styling. Due to specificity problems.</p>
+                    <pre><code data-trim>
+/* BAD */
+#navigation {}
+/* Hack */
+[id="navigation"] {} /* same specificity as a class */
+                    </code></pre>
+                </section>
+                <section>
+                    <h3>Document your declarations</h3>
+                    <p>Some declarations can be used as hacks or can be mistaken as poor knowledge</p>
+                    <pre><code data-trim>
+.title {
+    overflow: hidden; /* clip long unbreakable words */
+    width: 100%; /* Safari needs this with overflow: hidden; */
+}
+.row {
+    overflow: hidden; /* clearfix hack */
+}
+.comment {
+    position: relative; /* to position child elements */
+}
+.comment__count {
+    position: absolute;
+}
+.trigger__dummy {
+    position: relative; /* stacking order change */
+    z-index: 3; /* higher as .trigger */
+}
+.trigger {
+    position: relative; /* stacking order change */
+    z-index: 2; /* needs to be lower as .trigger__dummy */
+}
+                    </code></pre>
+                </section>
+                <section>
+                    <h3>BEM</h3>
+                    <p>Block - Element - Modifier</p>
+                    <pre><code data-trim>
+.person {}
+.person__head {}
+.person--tall {}
+                    </code></pre>
+                </section>
+                <section>
+                    <h3>Naming conventions</h3>
+                    <pre><code data-trim>
+/* BAD */
+.pageHeader {} /* no camelCasing */
+.button-blue {} /* to specific */
+.s {} /* What the heck does .s mean ???? */
+
+/* GOOD */
+.page-header {} /* hyphens FTW! */
+.button--primary {} /* and with BEM */
+.btn {}
+                    </code></pre>
+                </section>
+                <section>
+                    <h3>Performance matters</h3>
+                    <p>Avoid nesting selectors as much as possible</p>
+                    <pre><code data-trim>
+/* BAD */
+.block-list {}
+.block-list > li {}
+
+/* GOOD */
+.block-list {}
+.block-list__item { }
+                    </code></pre>
+                </section>
+                <section>
+                    <p>Classes on all the things!</p>
+                    <pre><code data-trim>
+&lt;ul class=&quot;block-list&quot;&gt;
+    &lt;li class=&quot;block-list__item&quot;&gt;
+        &lt;a href=&quot;#&quot; class=&quot;block-list__link&quot;&gt;item 1&lt;/a&gt;
+    &lt;/li&gt;
+    &lt;li class=&quot;block-list__item&quot;&gt;
+        &lt;a href=&quot;#&quot; class=&quot;block-list__link&quot;&gt;item 2&lt;/a&gt;
+    &lt;/li&gt;
+    &lt;li class=&quot;block-list__item&quot;&gt;
+        &lt;a href=&quot;#&quot; class=&quot;block-list__link&quot;&gt;item 3&lt;/a&gt;
+    &lt;/li&gt;
+&lt;/ul&gt;
+                    </code></pre>
+                </section>
+                <section>
+                    <h3>CSS preprocessors</h3>
+                    <p>Less or Sass or ...</p>
+                    <p><small>Pick the one you like. The end.</small></p>
+                </section>
+                <section>
+                    <h3>Declaration order</h3>
+                    <p>... with preprocessors</p>
+                    <p><small>First: extends and mixins. The rest will follow in no particular order but group them</small></p>
+                    <pre><code data-trim>
+.block-list {
+    @extend %unstyled-list;
+    @include box-shadow(5px 5px 5px rgba(0,0,0,0.5));
+    /* Typography */
+    font-family: 'Comic sans', sans-serif;
+    color: $text-color;
+    /* Box model */
+    float: left;
+    width: 50%;
+    /* Positioning */
+    position: absolute;
+    top: 20px;
+    left: -20px;
+    /* Visual */
+    border: 1px solid $primary-color;
+    /* Misc */
+    opacity: 1;
+}
+                    </code></pre>
+                </section>
+                <section>
+                    <h2>The future is here</h2>
+                    <h3>New techniques</h3>
+                </section>
+                <section>
+                    <h3>Responsive images</h3>
+                    <ul>
+                        <li><a href="https://dev.opera.com/articles/responsive-images/">Responsive Images: Use Cases and Documented Code Snippets to Get You Started</a></li>
+                        <li><a href="http://blog.cloudfour.com/dont-use-picture-most-of-the-time/">When to use <picture></a></li>
+                        <li><a href="http://css-tricks.com/responsive-images-youre-just-changing-resolutions-use-srcset/">Responsive Images: If you’re just changing resolutions, use srcset.</a></li>
+                        <li><a href="https://dev.opera.com/articles/native-responsive-images/">Native Responsive Images</a></li>
+                        <li><a href="http://www.html5rocks.com/en/tutorials/responsive/picture-element/">Built-in Browser Support for Responsive Images</a></li>
+                        <li><a href="http://www.filamentgroup.com/lab/to-picturefill.html">To Picturefill, or not to Picturefill</a></li>
+                        <li><a href="https://nostrongbeliefs.com/responsive-images/">Responsive images</a></li>
+                        <li><a href="http://demosthenes.info/blog/936/Responsive-Images-For-Designers-The-HTML5-picture-element">Responsive Images For Designers: The HTML5 picture element</a></li>
+                        <li><a href="http://www.smashingmagazine.com/2014/05/14/responsive-images-done-right-guide-picture-srcset/">Responsive Images Done Right: A Guide To <picture> And srcset</a></li>
+                    </ul>
+                </section>
+                <section>
+                    <h3>Flexbox</h3>
+                    <p><small><a href="http://www.w3.org/TR/css3-flexbox/">Flexbox</a> is meant for UI layout (like a navigation bar or a module), NOT for page layout. That's what <a href="http://www.w3.org/TR/css3-grid-layout/">Grid layout</a> is for.</small></p>
+                    <ul>
+                        <li><a href="http://www.w3.org/TR/css3-flexbox/">CSS Flexible Box Layout Module Level 1</a></li>
+                        <li><a href="http://css-tricks.com/snippets/css/a-guide-to-flexbox/">A Complete Guide to Flexbox</a></li>
+                        <li><a href="http://jonibologna.com/flexbox-cheatsheet/">Flexbox Cheatsheet Cheatsheet</a></li>
+                    </ul>
+                </section>
+                <section>
+                    <h3>Web components</h3>
+                    <ul>
+                        <li><a href="http://css-tricks.com/modular-future-web-components/">A Guide to Web Components</a></li>
+                        <li><a href="http://webcomponents.org/">Webcomponents.org</a></li>
+                        <li><a href="http://www.w3.org/TR/components-intro/">Introduction to Web Components - W3C spec</a></li>
+                    </ul>
+                </section>
+                <section>
+                    <h3>Experimental stuff</h3>
+                    <p>Min- and max-content</p>
+                    <ul>
+                        <li><a href="http://demosthenes.info/blog/894/Shrink-Wrap-HTML-containers-with-content-width">http://demosthenes.info/blog/894/Shrink-Wrap-HTML-containers-with-content-width</a></li>
+                        <li><a href="http://demosthenes.info/blog/662/Design-From-the-Inside-Out-With-CSS-Min-Content">http://demosthenes.info/blog/662/Design-From-the-Inside-Out-With-CSS-Min-Content</a></li>
+                        <li><a href="http://codepen.io/bengie/pen/FKBtw">Codepen example</a></li>
+                    </ul>
+                    <p>Resetting All Properties: the all property</p>
+                    <ul>
+                        <li><a href="http://dev.w3.org/csswg/css-cascade/#all-shorthand">http://dev.w3.org/csswg/css-cascade/#all-shorthand</a></li>
+                    </ul>
+                    <p>Element queries</p>
+                    <ul>
+                        <li><a href="http://www.filamentgroup.com/lab/element-query-workarounds.html">http://www.filamentgroup.com/lab/element-query-workarounds.html</a></li>
+                        <li><a href="http://responsiveimagescg.github.io/eq-usecases/">http://responsiveimagescg.github.io/eq-usecases/</a></li>
+                        <li><a href="http://hugogiraudel.com/2014/04/22/why-element-queries-matter/">http://hugogiraudel.com/2014/04/22/why-element-queries-matter/</a></li>
+                    </ul>
+                </section>
+                <section>
+                    <h2>Do's and Don't Do's</h2>
+                </section>
+                <section>
+                    <h3>Don't do</h3>
+                    <p>Disable page zooming</p>
+                    <pre><code data-trim>
+&lt;meta name=&quot;viewport&quot; content=&quot;initial-scale=1, maximum-scale=1, user-scalable=no&quot;&gt;
+                    </code></pre>
+                </section>
+                <section>
+                    <h3>Don't do</h3>
+                    <p>Use a library because you can</p>
+                    <pre><code data-trim>
+&lt;script src=&quot;//code.jquery.com/jquery-1.11.0.min.js&quot;&gt;&lt;/script&gt;
+&lt;script src=&quot;/scripts/vendor/modernizr.2.8.3.js&quot;&gt;&lt;/script&gt;
+                    </code></pre>
+                    <p><small>There are alternatives</small></p>
+                </section>
+                <section>
+                    <h3>Do</h3>
+                    <ul>
+                        <li>Keep improving/evaluating your architecture</li>
+                        <li>Try new stuff</li>
+                        <li>Refactor all the things all the time</li>
+                    </ul>
+                </section>
+                <section>
+                    <h2>Hands on</h2>
+                </section>
+
+            </div>
+
+        </div>
+
+        <script src="lib/js/head.min.js"></script>
+        <script src="js/reveal.min.js"></script>
+
+        <script>
+
+            // Full list of configuration options available here:
+            // https://github.com/hakimel/reveal.js#configuration
+            Reveal.initialize({
+                controls: true,
+                progress: true,
+                history: true,
+                center: true,
+
+                theme: Reveal.getQueryHash().theme, // available themes are in /css/theme
+                transition: Reveal.getQueryHash().transition || 'none', // default/cube/page/concave/zoom/linear/fade/none
+
+                // Parallax scrolling
+                // parallaxBackgroundImage: 'https://s3.amazonaws.com/hakim-static/reveal-js/reveal-parallax-1.jpg',
+                // parallaxBackgroundSize: '2100px 900px',
+
+                // Optional libraries used to extend on reveal.js
+                dependencies: [
+                    { src: 'lib/js/classList.js', condition: function() { return !document.body.classList; } },
+                    { src: 'plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+                    { src: 'plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+                    { src: 'plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+                    { src: 'plugin/zoom-js/zoom.js', async: true, condition: function() { return !!document.body.classList; } },
+                    { src: 'plugin/notes/notes.js', async: true, condition: function() { return !!document.body.classList; } }
+                ]
+            });
+
+        </script>
+
+    </body>
+</html>
